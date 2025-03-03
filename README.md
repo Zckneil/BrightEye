@@ -9,7 +9,7 @@ BrightEye is a revolutionary, AI-powered ophthalmic platform designed to complem
 ## Technology Stack
 
 - **Frontend**: Next.js 14 with App Router, React, TypeScript
-- **Styling**: TailwindCSS, ShadCN UI
+- **Styling**: TailwindCSS with custom glass morphism effects, ShadCN UI
 - **3D Visualization**: Three.js, React Three Fiber
 - **State Management**: Zustand
 - **Authentication**: NextAuth.js
@@ -36,6 +36,8 @@ src/
 │   ├── dashboard/          # Dashboard components
 │   ├── scan/               # Scan visualization components
 │   │   └── CornealVisualization.tsx  # Interactive 3D cornea component
+│   ├── Navigation.tsx      # Main navigation component
+│   ├── Footer.tsx         # Footer component with quick links
 │   ├── layout/             # Layout components
 │   └── landing/            # Landing page components
 ├── lib/                    # Utility libraries
@@ -50,8 +52,9 @@ src/
 ## Features
 
 ### Public-Facing Pages
-- Modern, responsive landing page with gradient accents
+- Modern, responsive landing page with glass morphism and neon effects
 - Interactive 3D product showcases
+- Smooth scroll navigation with section highlighting
 - AI-powered vision tests
 - Seamless navigation between patient and doctor portals
 
@@ -164,19 +167,22 @@ src/
 ## Development Status
 
 ### Completed Features
-- ✅ Landing page with modern UI
+- ✅ Landing page with modern UI and glass morphism effects
+- ✅ Smooth scroll navigation with section highlighting
 - ✅ Patient dashboard with interactive components
 - ✅ Doctor dashboard with patient management
 - ✅ Basic appointment scheduling system
 - ✅ Interactive 3D corneal visualization demo
 - ✅ Real-time parameter controls
 - ✅ Custom shader implementation
+- ✅ Responsive navigation with mobile support
 
 ### In Progress
 - 🔄 Advanced corneal analysis tools
 - 🔄 Video consultation system
 - 🔄 AI-powered diagnosis support
 - 🔄 Mobile app development
+- 🔄 Mobile menu implementation
 
 ### Planned Features
 - 📋 Advanced analytics dashboard
