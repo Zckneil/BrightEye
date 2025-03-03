@@ -1,30 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import Navigation from './components/Navigation'
+import Footer from './components/Footer'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background grid-bg">
       {/* Header/Navigation */}
-      <header className="w-full py-6 px-4 sm:px-6 lg:px-8 glass-panel sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold glow-text">BrightEye</h1>
-          </div>
-          <nav className="hidden md:flex space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-white hover-glow transition">Features</a>
-            <a href="#technology" className="text-gray-300 hover:text-white hover-glow transition">Technology</a>
-            <a href="#about" className="text-gray-300 hover:text-white hover-glow transition">About</a>
-            <Link href="/auth/signin" className="text-gray-300 hover:text-white hover-glow transition">
-              Sign In
-            </Link>
-          </nav>
-          <div className="md:hidden">
-            <button className="text-gray-300 hover:text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
+      <header className="w-full py-6 px-4 sm:px-6 lg:px-8 glass-panel sticky top-0 z-50 pointer-events-none">
+        <div className="max-w-7xl mx-auto pointer-events-auto">
+          <Navigation />
         </div>
       </header>
 
@@ -155,6 +140,61 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="glass-panel p-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 glow-text">
+              About BrightEye
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white mb-4">
+                  Our Mission
+                </h3>
+                <p className="text-gray-300">
+                  At BrightEye, we're revolutionizing eye care through cutting-edge technology and AI-driven solutions. Our mission is to make advanced eye care accessible, accurate, and efficient for both patients and healthcare providers.
+                </p>
+                <p className="text-gray-300">
+                  Through our innovative platform, we're bridging the gap between traditional eye care and modern technology, enabling better diagnosis, treatment, and patient care.
+                </p>
+              </div>
+              <div className="tech-card p-8">
+                <div className="relative z-10 space-y-4">
+                  <h3 className="text-xl font-semibold text-white">Key Benefits</h3>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-center">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Advanced AI-powered diagnostics
+                    </li>
+                    <li className="flex items-center">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Real-time analysis and visualization
+                    </li>
+                    <li className="flex items-center">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Seamless integration with existing systems
+                    </li>
+                    <li className="flex items-center">
+                      <svg className="h-5 w-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Enhanced patient care and experience
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto tech-card p-12">
@@ -183,45 +223,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black/40 backdrop-blur-xl text-white py-12 px-4 sm:px-6 lg:px-8 border-t border-white/10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4 glow-text">BrightEye</h3>
-            <p className="text-gray-400">
-              Next-generation AI-powered ophthalmic platform for advanced eye care.
-            </p>
-          </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Quick Links</h4>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white transition">Home</a></li>
-              <li><a href="#features" className="text-gray-400 hover:text-white transition">Features</a></li>
-              <li><a href="#technology" className="text-gray-400 hover:text-white transition">Technology</a></li>
-              <li><a href="#about" className="text-gray-400 hover:text-white transition">About</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Dashboards</h4>
-            <ul className="space-y-2">
-              <li><Link href="/dashboard/patient" className="text-gray-400 hover:text-white transition">Patient Dashboard</Link></li>
-              <li><Link href="/dashboard/doctor" className="text-gray-400 hover:text-white transition">Doctor Dashboard</Link></li>
-              <li><Link href="/dashboard/admin" className="text-gray-400 hover:text-white transition">Admin Dashboard</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-lg font-semibold mb-4 text-white">Contact</h4>
-            <ul className="space-y-2">
-              <li className="text-gray-400">Email: info@brighteye.com</li>
-              <li className="text-gray-400">Phone: +1 (555) 123-4567</li>
-              <li className="text-gray-400">Address: 123 Vision St, Eye City</li>
-            </ul>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} BrightEye. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
