@@ -27,12 +27,15 @@ src/
 │   │   ├── patient/        # Patient dashboard
 │   │   ├── doctor/         # Doctor dashboard
 │   │   └── admin/          # Admin dashboard
+│   ├── demo/              # Interactive demos
+│   │   └── corneal-visualization/  # 3D corneal visualization demo
 │   └── scan/               # Scan visualization pages
 ├── components/             # React components
 │   ├── ui/                 # UI components
 │   ├── auth/               # Authentication components
 │   ├── dashboard/          # Dashboard components
 │   ├── scan/               # Scan visualization components
+│   │   └── CornealVisualization.tsx  # Interactive 3D cornea component
 │   ├── layout/             # Layout components
 │   └── landing/            # Landing page components
 ├── lib/                    # Utility libraries
@@ -51,6 +54,22 @@ src/
 - Interactive 3D product showcases
 - AI-powered vision tests
 - Seamless navigation between patient and doctor portals
+
+### Interactive Demos
+- **3D Corneal Visualization** (/demo/corneal-visualization)
+  - Real-time 3D rendering of corneal structure
+  - Interactive controls (rotate, zoom, pan)
+  - Adjustable parameters:
+    - Corneal irregularity simulation
+    - Thickness visualization
+  - Custom shaders for realistic rendering:
+    - Fresnel effects
+    - Iridescent surface properties
+    - Dynamic lighting
+  - Professional tools:
+    - Surface deformation simulation
+    - Real-time parameter updates
+    - Medical-grade visualization
 
 ### Patient Dashboard
 - **Overview**
@@ -138,6 +157,10 @@ src/
    npm run dev
    ```
 
+5. Access the application
+   - Main application: http://localhost:3000
+   - Corneal visualization demo: http://localhost:3000/demo/corneal-visualization
+
 ## Development Status
 
 ### Completed Features
@@ -145,9 +168,12 @@ src/
 - ✅ Patient dashboard with interactive components
 - ✅ Doctor dashboard with patient management
 - ✅ Basic appointment scheduling system
+- ✅ Interactive 3D corneal visualization demo
+- ✅ Real-time parameter controls
+- ✅ Custom shader implementation
 
 ### In Progress
-- 🔄 3D corneal visualization integration
+- 🔄 Advanced corneal analysis tools
 - 🔄 Video consultation system
 - 🔄 AI-powered diagnosis support
 - 🔄 Mobile app development
@@ -157,6 +183,8 @@ src/
 - 📋 Integration with external medical systems
 - 📋 Patient mobile app
 - 📋 Automated prescription generation
+- 📋 Cross-sectional view in visualization
+- 📋 Measurement tools integration
 
 ## Contributing
 
