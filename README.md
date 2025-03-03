@@ -47,25 +47,57 @@ src/
 ## Features
 
 ### Public-Facing Pages
-- Landing page with futuristic, clinical UI
+- Modern, responsive landing page with gradient accents
 - Interactive 3D product showcases
 - AI-powered vision tests
+- Seamless navigation between patient and doctor portals
 
 ### Patient Dashboard
-- Personal scan history
-- AI-generated prescriptions
-- Telemedicine appointments
-- Interactive 3D corneal visualization
+- **Overview**
+  - Quick access to recent scans and appointments
+  - Latest prescription details
+  - Eye health recommendations
+  - Activity timeline
+- **Scan Management**
+  - Complete scan history with filtering
+  - Interactive 3D corneal visualization
+  - Downloadable scan reports
+- **Prescription Tracking**
+  - Detailed prescription history
+  - Side-by-side comparison of changes
+  - Digital prescription sharing
+- **Appointment System**
+  - Schedule new appointments
+  - Video consultation interface
+  - Appointment reminders and notifications
 
 ### Doctor Dashboard
-- Real-time scan analysis tools
-- Patient management
-- Telehealth capabilities
+- **Overview**
+  - Key metrics (total patients, monthly scans, accuracy)
+  - Recent patient activity
+  - Upcoming appointments
+  - Performance analytics
+- **Patient Management**
+  - Comprehensive patient directory
+  - Advanced search and filtering
+  - Patient history and progress tracking
+  - Quick access to patient profiles
+- **Appointment Handling**
+  - Daily schedule view
+  - Video consultation tools
+  - Appointment notes and follow-ups
+  - Flexible scheduling system
+- **Analysis Tools**
+  - Real-time corneal topography analysis
+  - Prescription trend analysis
+  - Treatment progress tracking
+  - AI-assisted diagnosis support
 
 ### Admin Panel
 - User role management
 - System logs
 - Security analytics
+- Performance monitoring
 
 ## Security
 
@@ -73,6 +105,7 @@ src/
 - Role-based access control (RBAC)
 - AES-256 encryption
 - Secure cloud storage on AWS S3
+- Regular security audits
 
 ## Getting Started
 
@@ -105,13 +138,29 @@ src/
    npm run dev
    ```
 
-## Usage
+## Development Status
 
-- Coming soon
+### Completed Features
+- ✅ Landing page with modern UI
+- ✅ Patient dashboard with interactive components
+- ✅ Doctor dashboard with patient management
+- ✅ Basic appointment scheduling system
+
+### In Progress
+- 🔄 3D corneal visualization integration
+- 🔄 Video consultation system
+- 🔄 AI-powered diagnosis support
+- 🔄 Mobile app development
+
+### Planned Features
+- 📋 Advanced analytics dashboard
+- 📋 Integration with external medical systems
+- 📋 Patient mobile app
+- 📋 Automated prescription generation
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
