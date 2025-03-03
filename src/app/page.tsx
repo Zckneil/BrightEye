@@ -132,12 +132,35 @@ export default function Home() {
                   <span className="text-gray-600">Color-coded visualization of corneal thickness</span>
                 </li>
               </ul>
-            </div>
-            <div className="bg-white p-4 rounded-xl shadow-lg">
-              <div className="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                <p className="text-gray-500 text-center">3D Corneal Visualization Demo</p>
-                {/* This will be replaced with the actual 3D visualization component */}
+              <div className="mt-8">
+                <Link 
+                  href="/demo/corneal-visualization" 
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-brighteye-primary hover:bg-brighteye-primary-dark transition"
+                >
+                  Try Interactive Demo
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </Link>
               </div>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-lg overflow-hidden">
+              <Link href="/demo/corneal-visualization" className="block relative group">
+                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-4 bg-brighteye-primary bg-opacity-10 rounded-full flex items-center justify-center group-hover:bg-opacity-20 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-brighteye-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-600 group-hover:text-brighteye-primary transition">
+                        Click to Launch Interactive Demo
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
