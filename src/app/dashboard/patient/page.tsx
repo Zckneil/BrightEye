@@ -329,16 +329,16 @@ export default function PatientDashboard() {
           {/* Prescriptions Tab */}
           {activeTab === 'prescriptions' && (
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <h2 className="text-xl font-semibold text-gray-800 mb-6">My Prescriptions</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-6">My Prescriptions</h2>
               <div className="space-y-6">
                 {mockPrescriptions.map((prescription) => (
                   <div key={prescription.id} className="border border-gray-200 rounded-lg p-4">
                     <div className="flex justify-between items-center mb-4">
-                      <h3 className="text-lg font-medium text-gray-800">
+                      <h3 className="text-lg font-medium text-gray-900">
                         Prescription from {new Date(prescription.date).toLocaleDateString()}
                       </h3>
                       <div className="flex space-x-2">
-                        <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition text-sm">
+                        <button className="px-3 py-1 bg-gray-100 text-gray-900 rounded-md hover:bg-gray-200 transition text-sm">
                           Download
                         </button>
                         <button className="px-3 py-1 bg-brighteye-primary text-white rounded-md hover:bg-opacity-90 transition text-sm">
@@ -348,42 +348,42 @@ export default function PatientDashboard() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="bg-gray-50 p-4 rounded-md">
-                        <h4 className="text-md font-medium text-gray-700 mb-3">Right Eye</h4>
+                        <h4 className="text-md font-medium text-gray-900 mb-3">Right Eye</h4>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Sphere</p>
-                            <p className="text-sm font-medium">{prescription.details.sphereRight}</p>
+                            <p className="text-xs text-gray-900 mb-1">Sphere</p>
+                            <p className="text-sm font-medium text-gray-900">{prescription.details.sphereRight}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Cylinder</p>
-                            <p className="text-sm font-medium">{prescription.details.cylinderRight}</p>
+                            <p className="text-xs text-gray-900 mb-1">Cylinder</p>
+                            <p className="text-sm font-medium text-gray-900">{prescription.details.cylinderRight}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Axis</p>
-                            <p className="text-sm font-medium">{prescription.details.axisRight}°</p>
+                            <p className="text-xs text-gray-900 mb-1">Axis</p>
+                            <p className="text-sm font-medium text-gray-900">{prescription.details.axisRight}°</p>
                           </div>
                         </div>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-md">
-                        <h4 className="text-md font-medium text-gray-700 mb-3">Left Eye</h4>
+                        <h4 className="text-md font-medium text-gray-900 mb-3">Left Eye</h4>
                         <div className="grid grid-cols-2 gap-4">
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Sphere</p>
-                            <p className="text-sm font-medium">{prescription.details.sphereLeft}</p>
+                            <p className="text-xs text-gray-900 mb-1">Sphere</p>
+                            <p className="text-sm font-medium text-gray-900">{prescription.details.sphereLeft}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Cylinder</p>
-                            <p className="text-sm font-medium">{prescription.details.cylinderLeft}</p>
+                            <p className="text-xs text-gray-900 mb-1">Cylinder</p>
+                            <p className="text-sm font-medium text-gray-900">{prescription.details.cylinderLeft}</p>
                           </div>
                           <div>
-                            <p className="text-xs text-gray-500 mb-1">Axis</p>
-                            <p className="text-sm font-medium">{prescription.details.axisLeft}°</p>
+                            <p className="text-xs text-gray-900 mb-1">Axis</p>
+                            <p className="text-sm font-medium text-gray-900">{prescription.details.axisLeft}°</p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="mt-4">
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-900">
                         Based on scan from {new Date(prescription.date).toLocaleDateString()}
                       </p>
                     </div>

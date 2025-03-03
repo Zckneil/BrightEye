@@ -89,7 +89,7 @@ export default function CornealVisualizationDemo() {
           <h3 className="text-lg font-medium text-gray-900 mb-4">
             About This Visualization
           </h3>
-          <div className="prose max-w-none">
+          <div className="prose max-w-none text-gray-900">
             <p>
               This interactive 3D visualization demonstrates our advanced corneal
               mapping technology. The model uses real-time rendering with custom
