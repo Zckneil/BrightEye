@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Add README.md
+# Add the README
 git add README.md
 
-# Commit
-git commit -m "Update README.md with project structure and documentation"
+# Commit the changes
+git commit -m "docs: Update README with corneal visualization demo details"
 
-# Push
+# Push to GitHub
 git push origin main
 
-echo "README.md updated and pushed successfully!" 
+echo "README changes committed and pushed successfully!" 
