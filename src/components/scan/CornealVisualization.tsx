@@ -3,10 +3,13 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, useHelper, Environment, useTexture, Text, Line, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { DirectionalLightHelper, PointLightHelper, Vector3 } from 'three';
-import nipplejs from 'nipplejs';
+import dynamic from 'next/dynamic';
 
 // Visualization modes
 type VisualizationMode = 'surface' | 'wireframe' | 'contour' | 'ai-analysis';
+
+// Client-side only joystick component
+const Joystick = dynamic(() => import('./Joystick'), { ssr: false });
 
 // Enhanced material uniforms
 interface MaterialUniforms {
@@ -31,7 +34,20 @@ const createUniforms = (): MaterialUniforms => ({
   pulseSpeed: { value: 1.0 },
   environmentIntensity: { value: 0.5 },
   mode: { value: 0 },
-  healthFactor: { value: 1 }
+  healthFactor: { value: 1 },
+  topographyScale: { value: 1.0 },
+  topographyContrast: { value: 1.2 },
+  anomalyIntensity: { value: 0.0 },
+  anomalyPosition: { value: new THREE.Vector2(0.5, 0.5) },
+  anomalyRadius: { value: 0.2 },
+  tearFilmThickness: { value: 0.01 },
+  curvatureMap: { value: null },
+  aiDetectionMap: { value: null },
+  pupilSize: { value: 0.3 },
+  irisColor: { value: new THREE.Vector3(0.3, 0.5, 0.8) },
+  irisDetail: { value: 30.0 },
+  irisRoughness: { value: 0.8 },
+  pupilDilation: { value: 0.0 }
 });
 
 // Advanced cornea material with multi-mode rendering
@@ -82,6 +98,19 @@ const createAdvancedCorneaMaterial = () => {
       uniform float environmentIntensity;
       uniform int mode;
       uniform float healthFactor;
+      uniform float topographyScale;
+      uniform float topographyContrast;
+      uniform float anomalyIntensity;
+      uniform vec2 anomalyPosition;
+      uniform float anomalyRadius;
+      uniform float tearFilmThickness;
+      uniform sampler2D curvatureMap;
+      uniform sampler2D aiDetectionMap;
+      uniform float pupilSize;
+      uniform vec3 irisColor;
+      uniform float irisDetail;
+      uniform float irisRoughness;
+      uniform float pupilDilation;
       
       varying vec3 vNormal;
       varying vec3 vPosition;
@@ -122,18 +151,97 @@ const createAdvancedCorneaMaterial = () => {
         return fresnel * (1.0 + roughness * (1.0 - fresnel));
       }
       
+      // Physical tear film interference
+      vec3 tearFilmInterference(float thickness, vec3 normal, vec3 viewDir) {
+        float cosTheta = abs(dot(normal, viewDir));
+        float phi = 2.0 * 3.14159 * 2.0 * thickness / 550e-9; // wavelength of light
+        
+        // Wavelength-dependent phase shifts
+        float phi_r = phi * 700.0/550.0; // red
+        float phi_g = phi; // green
+        float phi_b = phi * 400.0/550.0; // blue
+        
+        vec3 reflection = vec3(
+          0.5 * (1.0 + cos(phi_r)),
+          0.5 * (1.0 + cos(phi_g)),
+          0.5 * (1.0 + cos(phi_b))
+        );
+        
+        return reflection * (1.0 - cosTheta);
+      }
+      
+      // Enhanced topography color mapping
+      vec3 getTopographyColor(float height) {
+        // Enhanced color mapping for better visualization
+        vec3 colors[7] = vec3[7](
+          vec3(0.0, 0.0, 1.0),   // Deep blue (flattest)
+          vec3(0.0, 1.0, 1.0),   // Cyan
+          vec3(0.0, 1.0, 0.0),   // Green
+          vec3(1.0, 1.0, 0.0),   // Yellow
+          vec3(1.0, 0.5, 0.0),   // Orange
+          vec3(1.0, 0.0, 0.0),   // Red
+          vec3(1.0, 0.0, 1.0)    // Magenta (steepest)
+        );
+        
+        float scaledHeight = height * topographyScale * topographyContrast;
+        float index = clamp(scaledHeight, 0.0, 1.0) * 6.0;
+        int i = int(floor(index));
+        float f = fract(index);
+        
+        return mix(colors[i], colors[min(i + 1, 6)], f);
+      }
+      
+      // AI anomaly detection visualization
+      float detectAnomaly(vec2 uv) {
+        float dist = distance(uv, anomalyPosition);
+        float anomaly = smoothstep(anomalyRadius + 0.1, anomalyRadius, dist);
+        float pulse = sin(time * pulseSpeed) * 0.5 + 0.5;
+        return anomaly * anomalyIntensity * pulse;
+      }
+      
+      // Iris pattern generation
+      float irisPattern(vec2 uv, float detail) {
+        float pattern = 0.0;
+        float scale = 1.0;
+        float amp = 0.5;
+        
+        for (int i = 0; i < 3; i++) {
+          pattern += (sin(uv.x * detail * scale + uv.y * detail * scale * 0.7) * 0.5 + 0.5) * amp;
+          pattern += (cos(uv.y * detail * scale * 1.2 - uv.x * detail * scale * 0.3) * 0.5 + 0.5) * amp;
+          scale *= 2.0;
+          amp *= 0.5;
+        }
+        
+        return pattern / 2.0;
+      }
+      
+      // Radial iris coloration
+      vec3 getIrisColor(vec2 uv, float dist) {
+        float pattern = irisPattern(uv * 2.0, irisDetail);
+        
+        // Create radial color variation
+        vec3 innerColor = irisColor * 1.2;
+        vec3 outerColor = irisColor * 0.8;
+        vec3 baseColor = mix(innerColor, outerColor, smoothstep(0.1, 0.9, dist));
+        
+        // Add detail variations
+        float detail = pattern * irisRoughness;
+        vec3 detailColor = mix(baseColor * 1.2, baseColor * 0.8, detail);
+        
+        return detailColor;
+      }
+      
       void main() {
         vec3 viewDirection = normalize(vViewPosition);
         vec3 normal = normalize(vNormal);
         vec3 lightDir = normalize(vec3(5.0, 5.0, 5.0));
         
-        // Calculate base effects
+        // Base effects calculation
         float anisotropicFresnelFactor = anisotropicFresnel(normal, viewDirection, 0.2);
         vec3 sssColor = calculateSSS(viewDirection, normal, lightDir);
-        vec3 iridescenceColor = calculateIridescence(dot(normal, viewDirection));
-        float tearRipple = tearFilm(vUv);
+        vec3 tearInterference = tearFilmInterference(tearFilmThickness + tearFilm(vUv), normal, viewDirection);
         
-        // Dynamic environment reflection
+        // Environment reflection
         vec3 envReflection = reflect(-viewDirection, normal);
         float envFresnel = pow(1.0 - max(0.0, dot(normal, viewDirection)), 3.0);
         
@@ -144,51 +252,50 @@ const createAdvancedCorneaMaterial = () => {
         vec3 finalColor;
         float finalOpacity = opacity;
         
-        if (mode == 0) { // Enhanced Surface Map with SSS
-          vec3 surfaceColor = mix(baseColor, iridescenceColor, anisotropicFresnelFactor);
-          finalColor = surfaceColor + sssColor;
-          finalColor *= (1.0 + tearRipple);
+        // Calculate distance from center for iris
+        vec2 centeredUv = vUv * 2.0 - 1.0;
+        float distFromCenter = length(centeredUv);
+        
+        if (mode == 0) { // Enhanced Physical Surface with Iris
+          if (distFromCenter < 0.8) {
+            // Iris
+            vec3 irisCol = getIrisColor(centeredUv, distFromCenter / 0.8);
+            vec3 surfaceColor = mix(baseColor, tearInterference, anisotropicFresnelFactor * 0.5);
+            finalColor = irisCol * surfaceColor + sssColor * 0.3;
+            finalColor *= (1.0 + tearFilm(vUv) * 0.3);
+            finalOpacity = 1.0;
+          } else {
+            // Cornea
+            vec3 surfaceColor = mix(baseColor, tearInterference, anisotropicFresnelFactor);
+            finalColor = surfaceColor + sssColor;
+            finalColor *= (1.0 + tearFilm(vUv));
+          }
           
-        } else if (mode == 1) { // Enhanced Wireframe with holographic effect
-          float gridLine = max(
-            abs(fract(vUv.x * 20.0) - 0.5),
-            abs(fract(vUv.y * 20.0) - 0.5)
-          );
-          gridLine = smoothstep(0.1, 0.05, gridLine);
-          vec3 gridColor = mix(
-            vec3(0.1, 0.4, 0.8),
-            vec3(1.0) + iridescenceColor,
-            gridLine
-          );
-          finalColor = gridColor + sssColor * 0.3;
-          finalOpacity = mix(0.1, 1.0, gridLine);
-          
-        } else if (mode == 2) { // Enhanced Contour with neon glow
-          float elevation = vElevation * displacementScale;
-          float contour = abs(fract(elevation * 10.0) - 0.5);
-          contour = smoothstep(0.1, 0.0, contour);
-          vec3 glowColor = vec3(0.0, 1.0, 1.0) * glowIntensity;
-          finalColor = mix(baseColor * 0.5, glowColor, contour);
+        } else if (mode == 1) { // Topography Map
+          vec3 topographyColor = getTopographyColor(vElevation);
+          finalColor = topographyColor;
           finalColor += sssColor * 0.2;
+          finalOpacity = 0.9;
           
-        } else { // Enhanced AI Analysis with cyberpunk effects
-          vec3 anomalyColor = vec3(1.0, 0.2, 0.0);
-          float anomalyPattern = sin(vUv.x * 30.0) * sin(vUv.y * 30.0) * 0.5 + 0.5;
-          float pulse = sin(time * pulseSpeed + anomalyPattern * 10.0) * 0.5 + 0.5;
-          finalColor = mix(baseColor, anomalyColor, anomalyPattern * pulse);
-          finalColor += iridescenceColor * 0.3 + sssColor * 0.2;
+        } else if (mode == 2) { // AI Analysis
+          float anomalyFactor = detectAnomaly(vUv);
+          vec3 anomalyColor = vec3(1.0, 0.0, 0.0);
+          finalColor = mix(baseColor, anomalyColor, anomalyFactor);
+          finalColor += tearInterference * 0.3;
+          
+          float glowPulse = sin(time * 2.0) * 0.5 + 0.5;
+          finalColor += anomalyColor * anomalyFactor * glowPulse;
         }
         
-        // Add environment reflection and final effects
+        // Add environment reflection and health modulation
         finalColor += envReflection * environmentIntensity * envFresnel;
         finalColor *= healthModulation * healthFactor;
         
-        // Add depth-based effects
-        float depth = 1.0 - pow(dot(normal, viewDirection), 2.0);
+        // Edge highlighting
         float edgeGlow = pow(1.0 - dot(normal, viewDirection), 4.0) * glowIntensity;
         finalColor += vec3(edgeGlow * 0.5);
         
-        gl_FragColor = vec4(finalColor, finalOpacity * (0.8 + depth * 0.2));
+        gl_FragColor = vec4(finalColor, finalOpacity);
       }
     `,
     transparent: true,
@@ -217,6 +324,27 @@ const generateHighResCorneaGeometry = (
   const positions = geometry.attributes.position;
   const uvs = geometry.attributes.uv;
   const normals = geometry.attributes.normal;
+  
+  // Adjust UV mapping to center the pupil
+  for (let i = 0; i < uvs.count; i++) {
+    const u = uvs.getX(i);
+    const v = uvs.getY(i);
+    
+    // Center the UVs around the middle
+    const centeredU = u * 2.0 - 1.0;
+    const centeredV = v * 2.0 - 1.0;
+    
+    // Convert to polar coordinates
+    const r = Math.sqrt(centeredU * centeredU + centeredV * centeredV);
+    const theta = Math.atan2(centeredV, centeredU);
+    
+    // Map back to UV space
+    uvs.setXY(
+      i,
+      (r * Math.cos(theta) + 1.0) * 0.5,
+      (r * Math.sin(theta) + 1.0) * 0.5
+    );
+  }
   
   // Create detailed surface variations
   for (let i = 0; i < positions.count; i++) {
@@ -266,6 +394,9 @@ interface CornealVisualizationProps {
   theme?: 'clinic' | 'futuristic' | 'sci-fi';
   onThemeChange?: (theme: 'clinic' | 'futuristic' | 'sci-fi') => void;
   onModeChange?: (mode: VisualizationMode) => void;
+  anomalyPosition?: { x: number; y: number };
+  anomalyRadius?: number;
+  anomalyIntensity?: number;
 }
 
 export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
@@ -279,7 +410,10 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
   healthFactor = 1,
   theme = 'futuristic',
   onThemeChange,
-  onModeChange
+  onModeChange,
+  anomalyPosition,
+  anomalyRadius,
+  anomalyIntensity
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedPoint, setSelectedPoint] = useState<{ x: number; y: number; z: number } | null>(null);
@@ -290,7 +424,6 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
   const [uiOpacity, setUiOpacity] = useState(1);
   const [currentTheme, setCurrentTheme] = useState(theme);
   const [currentMode, setCurrentMode] = useState(mode);
-  const joystickRef = useRef<HTMLDivElement>(null);
   const orbitControlsRef = useRef<any>(null);
   
   // Dynamic theme colors based on mode and theme
@@ -348,63 +481,6 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
     setCurrentMode(newMode);
   }, []);
 
-  // Initialize joystick
-  useEffect(() => {
-    if (!joystickRef.current) return;
-
-    const manager = nipplejs.create({
-      zone: joystickRef.current,
-      mode: 'static',
-      position: { left: '50%', top: '50%' },
-      color: themeColors.primary,
-      size: 100,
-      dynamicPage: true,
-      multitouch: false,
-      maxNumberOfNipples: 1,
-      dataOnly: false,
-      restJoystick: true,
-      restOpacity: 0.5,
-      threshold: 0.1
-    });
-
-    let moveInterval: NodeJS.Timeout | null = null;
-
-    manager.on('start', () => {
-      if (joystickRef.current) {
-        joystickRef.current.style.opacity = '1';
-      }
-    });
-
-    manager.on('move', (evt, data) => {
-      if (orbitControlsRef.current && data.vector) {
-        const rotationSpeed = 0.03;
-        const deltaX = -data.vector.x * rotationSpeed * data.force;
-        const deltaY = -data.vector.y * rotationSpeed * data.force;
-
-        if (moveInterval) clearInterval(moveInterval);
-        moveInterval = setInterval(() => {
-          orbitControlsRef.current.rotateLeft(deltaX);
-          orbitControlsRef.current.rotateUp(deltaY);
-        }, 16);
-      }
-    });
-
-    manager.on('end', () => {
-      if (moveInterval) {
-        clearInterval(moveInterval);
-        moveInterval = null;
-      }
-      if (joystickRef.current) {
-        joystickRef.current.style.opacity = '0.8';
-      }
-    });
-
-    return () => {
-      if (moveInterval) clearInterval(moveInterval);
-      manager.destroy();
-    };
-  }, [themeColors]);
-
   // Enhanced camera controls with joystick support
   const CameraController = useMemo(() => {
     const Controller: React.FC<{ onCameraMove: (state: any) => void }> = ({ onCameraMove }) => {
@@ -450,13 +526,19 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
       astigmatism: number;
       keratoconus: number;
       healthFactor: number;
+      anomalyPosition?: { x: number; y: number };
+      anomalyRadius?: number;
+      anomalyIntensity?: number;
     }> = ({
       mode,
       irregularity,
       thickness,
       astigmatism,
       keratoconus,
-      healthFactor
+      healthFactor,
+      anomalyPosition,
+      anomalyRadius,
+      anomalyIntensity
     }) => {
       const meshRef = useRef<THREE.Mesh>(null);
       const mainLightRef = useRef<THREE.DirectionalLight>(null);
@@ -479,17 +561,32 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
           material.uniforms.time.value = clock.getElapsedTime();
           material.uniforms.healthFactor.value = healthFactor;
           material.uniforms.mode.value = modeValue;
+          material.uniforms.anomalyPosition.value.set(
+            anomalyPosition?.x ?? 0.5,
+            anomalyPosition?.y ?? 0.5
+          );
+          material.uniforms.anomalyRadius.value = anomalyRadius ?? 0.2;
+          material.uniforms.anomalyIntensity.value = anomalyIntensity ?? 0;
           material.uniforms.glowIntensity.value = 0.8 + Math.sin(clock.getElapsedTime() * 0.5) * 0.2;
           material.uniforms.pulseSpeed.value = 1.0 + Math.sin(clock.getElapsedTime() * 0.2) * 0.3;
           
           // Subtle natural movement
           meshRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.3) * 0.02;
           meshRef.current.rotation.y = Math.cos(clock.getElapsedTime() * 0.2) * 0.02;
+          
+          // Add pupil dilation animation
+          const pulseSpeed = 0.5;
+          const dilationAmount = Math.sin(clock.getElapsedTime() * pulseSpeed) * 0.1;
+          material.uniforms.pupilDilation.value = Math.max(0, dilationAmount);
+          
+          // Subtle iris color variation
+          const hueShift = Math.sin(clock.getElapsedTime() * 0.2) * 0.1;
+          material.uniforms.irisColor.value.setX(0.3 + hueShift);
         }
       });
 
       return (
-        <group rotation={[Math.PI * 0.5, 0, 0]}>
+        <group rotation={[0, 0, 0]}>
           <directionalLight
             ref={mainLightRef}
             position={[5, 5, 5]}
@@ -516,6 +613,7 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
             scale={[1, 1, thickness]}
             castShadow
             receiveShadow
+            rotation={[-Math.PI * 0.5, 0, 0]}
           />
           
           <group position={[0, 0, 0]}>
@@ -594,6 +692,9 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
               astigmatism={astigmatism}
               keratoconus={keratoconus}
               healthFactor={healthFactor}
+              anomalyPosition={anomalyPosition}
+              anomalyRadius={anomalyRadius}
+              anomalyIntensity={anomalyIntensity}
             />
             
             {/* Dynamic background effects */}
@@ -620,36 +721,11 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
             )}
           </Canvas>
 
-          {/* Virtual Joystick */}
-          <div
-            ref={joystickRef}
-            className="absolute bottom-8 right-8 w-32 h-32 rounded-full backdrop-blur-xl pointer-events-auto z-50 transition-all duration-300"
-            style={{
-              background: `linear-gradient(135deg, ${themeColors.background}, rgba(0,0,0,0.3))`,
-              border: `2px solid ${themeColors.primary}40`,
-              boxShadow: `0 4px 30px ${themeColors.primary}30, inset 0 2px 10px rgba(255,255,255,0.1)`,
-              opacity: 0.8
-            }}
-          >
-            {/* Joystick Label */}
-            <div 
-              className="absolute -top-7 left-0 w-full text-center text-xs font-light tracking-wider"
-              style={{ 
-                color: themeColors.primary,
-                textShadow: `0 0 10px ${themeColors.primary}50`
-              }}
-            >
-              Rotation Control
-            </div>
-            {/* Joystick Guide */}
-            <div 
-              className="absolute inset-4 rounded-full opacity-20"
-              style={{
-                border: `1px dashed ${themeColors.primary}`,
-                background: `radial-gradient(circle, ${themeColors.primary}10 0%, transparent 70%)`
-              }}
-            />
-          </div>
+          {/* Replace the joystick div with the new component */}
+          <Joystick
+            theme={themeColors}
+            orbitControlsRef={orbitControlsRef}
+          />
 
           {/* Glassmorphic UI Overlay - Make controls clickable but not block joystick */}
           <div
