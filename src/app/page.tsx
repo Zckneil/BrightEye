@@ -13,78 +13,139 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-        <div className="absolute inset-0 bg-[url('/images/eye-pattern.svg')] bg-center opacity-5 z-0"></div>
+      {/* Enhanced Hero Section */}
+      <section className="relative min-h-[90vh] px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-background"></div>
+        <div className="absolute inset-0 bg-[url('/images/eye-pattern.svg')] bg-center opacity-5 z-0 animate-pulse"></div>
+        <div className="absolute w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 glow-text">
-            Next-Generation<br />Eye Scanner
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+          <div className="mb-8 relative">
+            <h1 className="text-6xl md:text-8xl font-bold glow-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent">
+              Next-Generation<br />Eye Scanner
+            </h1>
+            <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-primary/50"></div>
+            <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-accent/50"></div>
+          </div>
+          
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             Revolutionary AI-powered ophthalmic platform for real-time corneal topography, 
             prescription analysis, and telemedicine integration.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
             <Link 
               href="/dashboard/patient" 
-              className="neon-border px-8 py-4 bg-primary/20 text-white hover-glow backdrop-blur-sm"
+              className="group relative px-8 py-4 bg-primary/20 text-white hover:bg-primary/30 transition-all duration-300 backdrop-blur-sm rounded-xl overflow-hidden"
             >
-              Patient Dashboard
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/20 to-primary/0 animate-shimmer"></span>
+              <span className="relative flex items-center justify-center gap-2">
+                Patient Dashboard
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
             </Link>
             <Link 
               href="/dashboard/doctor" 
-              className="neon-border px-8 py-4 bg-accent/20 text-white hover-glow backdrop-blur-sm"
+              className="group relative px-8 py-4 bg-accent/20 text-white hover:bg-accent/30 transition-all duration-300 backdrop-blur-sm rounded-xl overflow-hidden"
             >
-              Doctor Dashboard
+              <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-accent/20 to-accent/0 animate-shimmer"></span>
+              <span className="relative flex items-center justify-center gap-2">
+                Doctor Dashboard
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
             </Link>
           </div>
+        </div>
+        
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 glow-text">
-            Cutting-Edge Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="tech-card p-8 hover-glow">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
+      <section id="features" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background"></div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold glow-text bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent inline-block">
+              Cutting-Edge Features
+            </h2>
+            <div className="mt-4 w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="group hover:scale-105 transition-all duration-300">
+              <div className="tech-card p-8 h-full bg-gradient-to-br from-background to-primary/10 backdrop-blur-lg border border-primary/20 rounded-2xl">
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4 text-white group-hover:text-primary transition-colors">Real-Time Corneal Topography</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
+                    Advanced 3D visualization of corneal structure with precise measurements and interactive controls.
+                  </p>
+                  <div className="mt-6 flex items-center text-primary/70 group-hover:text-primary transition-colors">
+                    <span className="text-sm font-medium">Learn more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">Real-Time Corneal Topography</h3>
-                <p className="text-gray-300">
-                  Advanced 3D visualization of corneal structure with precise measurements and interactive controls.
-                </p>
               </div>
             </div>
-            <div className="tech-card p-8 hover-glow">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
+
+            <div className="group hover:scale-105 transition-all duration-300">
+              <div className="tech-card p-8 h-full bg-gradient-to-br from-background to-accent/10 backdrop-blur-lg border border-accent/20 rounded-2xl">
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4 text-white group-hover:text-accent transition-colors">AI-Driven Prescription Analysis</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
+                    Machine learning algorithms that analyze scan data to generate accurate prescription recommendations.
+                  </p>
+                  <div className="mt-6 flex items-center text-accent/70 group-hover:text-accent transition-colors">
+                    <span className="text-sm font-medium">Learn more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">AI-Driven Prescription Analysis</h3>
-                <p className="text-gray-300">
-                  Machine learning algorithms that analyze scan data to generate accurate prescription recommendations.
-                </p>
               </div>
             </div>
-            <div className="tech-card p-8 hover-glow">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
+
+            <div className="group hover:scale-105 transition-all duration-300">
+              <div className="tech-card p-8 h-full bg-gradient-to-br from-background to-primary/10 backdrop-blur-lg border border-primary/20 rounded-2xl">
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4 text-white group-hover:text-primary transition-colors">Telemedicine Integration</h3>
+                  <p className="text-gray-300 group-hover:text-gray-200 transition-colors">
+                    Seamless virtual consultations with eye care professionals, sharing scan data in real-time.
+                  </p>
+                  <div className="mt-6 flex items-center text-primary/70 group-hover:text-primary transition-colors">
+                    <span className="text-sm font-medium">Learn more</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">Telemedicine Integration</h3>
-                <p className="text-gray-300">
-                  Seamless virtual consultations with eye care professionals, sharing scan data in real-time.
-                </p>
               </div>
             </div>
           </div>
