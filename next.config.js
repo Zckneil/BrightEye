@@ -21,7 +21,7 @@ const nextConfig = {
   env: {
     // We don't expose the actual password to the client
     // Instead, we just indicate that password protection is enabled
-    PASSWORD_PROTECTION_ENABLED: !!process.env.SITE_PASSWORD,
+    PASSWORD_PROTECTION_ENABLED: process.env.SITE_PASSWORD ? 'true' : 'false',
   },
 }
 
