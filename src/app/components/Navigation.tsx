@@ -26,7 +26,7 @@ export default function Navigation() {
   return (
     <div className="w-full flex justify-between items-center relative">
       <Link href="/" className="text-2xl font-bold glow-text hover:opacity-80 transition-opacity relative">
-        BrightEye
+        EyeQ
       </Link>
       <nav className="hidden md:flex items-center space-x-8 relative">
         <button 
@@ -51,10 +51,10 @@ export default function Navigation() {
           About
         </button>
         <Link 
-          href="/auth/signin" 
+          href="/contact" 
           className="relative text-gray-300 hover:text-white hover-glow transition px-4 py-2 rounded-lg hover:bg-white/5"
         >
-          Sign In
+          Contact
         </Link>
       </nav>
       <div className="md:hidden relative">

@@ -17,7 +17,10 @@ export default function Home() {
       <section className="relative min-h-[90vh] px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center overflow-hidden">
         {/* Animated background elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-background"></div>
-        <div className="absolute inset-0 bg-[url('/images/eye-pattern.svg')] bg-center opacity-5 z-0 animate-pulse"></div>
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,transparent_2px,#ffffff03_2px),linear-gradient(to_bottom,transparent_2px,#ffffff03_2px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,transparent_2px,#ffffff02_2px),linear-gradient(to_bottom,transparent_2px,#ffffff02_2px)] bg-[size:80px_80px] rotate-45 [mask-image:radial-gradient(ellipse_at_center,white,transparent_70%)]"></div>
+        </div>
         <div className="absolute w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl animate-blob"></div>
         <div className="absolute w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
         
@@ -25,7 +28,7 @@ export default function Home() {
           <div className="mb-8 relative">
             <h1 className="text-6xl md:text-8xl font-bold glow-text bg-clip-text text-transparent bg-gradient-to-r from-primary via-white to-accent">
               Next-Generation<br />Eye Scanner
-            </h1>
+        </h1>
             <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-primary/50"></div>
             <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-accent/50"></div>
           </div>
@@ -36,39 +39,33 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Link 
-              href="/dashboard/patient" 
+          <Link 
+            href="/dashboard/patient" 
               className="group relative px-8 py-4 bg-primary/20 text-white hover:bg-primary/30 transition-all duration-300 backdrop-blur-sm rounded-xl overflow-hidden"
-            >
+          >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/20 to-primary/0 animate-shimmer"></span>
               <span className="relative flex items-center justify-center gap-2">
-                Patient Dashboard
+            Patient Dashboard
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
-            </Link>
-            <Link 
-              href="/dashboard/doctor" 
+          </Link>
+          <Link 
+            href="/dashboard/doctor" 
               className="group relative px-8 py-4 bg-accent/20 text-white hover:bg-accent/30 transition-all duration-300 backdrop-blur-sm rounded-xl overflow-hidden"
-            >
+          >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-accent/20 to-accent/0 animate-shimmer"></span>
               <span className="relative flex items-center justify-center gap-2">
-                Doctor Dashboard
+            Doctor Dashboard
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
-            </Link>
-          </div>
+          </Link>
         </div>
+      </div>
         
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
       </section>
 
       {/* Features Section */}
@@ -206,7 +203,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="glass-panel p-8">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 glow-text">
-              About BrightEye
+              About EyeQ
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6">
@@ -214,7 +211,7 @@ export default function Home() {
                   Our Mission
                 </h3>
                 <p className="text-gray-300">
-                  At BrightEye, we're revolutionizing eye care through cutting-edge technology and AI-driven solutions. Our mission is to make advanced eye care accessible, accurate, and efficient for both patients and healthcare providers.
+                  At EyeQ, we're revolutionizing eye care through cutting-edge technology and AI-driven solutions. Our mission is to make advanced eye care accessible, accurate, and efficient for both patients and healthcare providers.
                 </p>
                 <p className="text-gray-300">
                   Through our innovative platform, we're bridging the gap between traditional eye care and modern technology, enabling better diagnosis, treatment, and patient care.

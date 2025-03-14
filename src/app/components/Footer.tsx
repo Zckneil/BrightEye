@@ -19,7 +19,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <button onClick={scrollToTop} className="text-xl font-bold mb-4 glow-text hover:opacity-80 transition-opacity">
-            BrightEye
+            EyeQ
           </button>
           <p className="text-gray-400">
             Next-generation AI-powered ophthalmic platform for advanced eye care.
@@ -61,14 +61,14 @@ export default function Footer() {
         <div>
           <h4 className="text-lg font-semibold mb-4 text-white">Contact</h4>
           <ul className="space-y-2">
-            <li className="text-gray-400">Email: info@brighteye.com</li>
+            <li className="text-gray-400">Email: info@EyeQ.com</li>
             <li className="text-gray-400">Phone: +1 (555) 123-4567</li>
             <li className="text-gray-400">Address: 123 Vision St, Eye City</li>
           </ul>
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 text-center text-gray-400">
-        <p>&copy; {new Date().getFullYear()} BrightEye. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} EyeQ. All rights reserved.</p>
       </div>
     </footer>
   );

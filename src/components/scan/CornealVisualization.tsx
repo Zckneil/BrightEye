@@ -401,7 +401,7 @@ interface CornealVisualizationProps {
 
 export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
   width = '100%',
-  height = '600px',
+  height = '1200px',
   mode = 'surface',
   irregularity = 0,
   thickness = 1,
@@ -481,7 +481,7 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
     setCurrentMode(newMode);
   }, []);
 
-  // Enhanced camera controls with joystick support
+  // Enhanced camera controls
   const CameraController = useMemo(() => {
     const Controller: React.FC<{ onCameraMove: (state: any) => void }> = ({ onCameraMove }) => {
       const { camera, gl } = useThree();
@@ -503,10 +503,10 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
           domElement={gl.domElement}
           enableDamping={true}
           dampingFactor={0.05}
-          minDistance={2}
-          maxDistance={8}
-          minPolarAngle={Math.PI * 0.1}
-          maxPolarAngle={Math.PI * 0.9}
+          minDistance={0.5}
+          maxDistance={12}
+          minPolarAngle={0}
+          maxPolarAngle={Math.PI}
           rotateSpeed={0.8}
           zoomSpeed={1.2}
           panSpeed={0.8}
@@ -617,14 +617,14 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
           />
           
           <group position={[0, 0, 0]}>
-            <gridHelper args={[4, 40, '#1a4a7a', '#0a1f35']} />
+            <gridHelper args={[8, 80, '#1a4a7a', '#0a1f35']} />
             <Text
-              position={[2.2, 0, 0]}
+              position={[4.2, 0, 0]}
               rotation={[0, 0, 0]}
               fontSize={0.15}
               color="#4a9eff"
             >
-              2mm
+              4mm
             </Text>
           </group>
         </group>
@@ -664,7 +664,7 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-16">
         {/* Back Button */}
         <button
           onClick={() => window.location.href = '/'}
@@ -720,166 +720,7 @@ export const CornealVisualization: React.FC<CornealVisualizationProps> = ({
               </group>
             )}
           </Canvas>
-
-          {/* Replace the joystick div with the new component */}
-          <Joystick
-            theme={themeColors}
-            orbitControlsRef={orbitControlsRef}
-          />
-
-          {/* Glassmorphic UI Overlay - Make controls clickable but not block joystick */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ opacity: uiOpacity }}
-          >
-            {/* Top Bar */}
-            <div
-              className="absolute top-4 left-4 right-4 p-4 rounded-xl backdrop-blur-xl transition-all duration-300 pointer-events-auto"
-              style={{
-                background: themeColors.background,
-                borderBottom: `1px solid ${themeColors.primary}20`,
-                boxShadow: `0 4px 30px ${themeColors.primary}10`,
-                zIndex: 40
-              }}
-            >
-              <div className="flex justify-between items-center">
-                <h2 className="text-lg font-light" style={{ color: themeColors.primary }}>
-                  Corneal Analysis
-                </h2>
-                <div className="flex space-x-4">
-                  {['clinic', 'futuristic', 'sci-fi'].map((t) => (
-                    <button
-                      key={t}
-                      className={`px-3 py-1 rounded-full text-sm transition-all duration-300 ${
-                        currentTheme === t ? 'bg-white/10' : 'hover:bg-white/5'
-                      }`}
-                      style={{ color: themeColors.primary }}
-                      onClick={() => handleThemeChange(t as 'clinic' | 'futuristic' | 'sci-fi')}
-                      onMouseEnter={(e) => handleControlHover(`Theme: ${t}`, e)}
-                      onMouseLeave={() => setShowTooltip(false)}
-                    >
-                      {t.charAt(0).toUpperCase() + t.slice(1)}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Side Controls */}
-            <div
-              className="absolute top-24 right-4 w-64 p-4 rounded-xl backdrop-blur-xl transition-all duration-300 pointer-events-auto"
-              style={{
-                background: themeColors.background,
-                border: `1px solid ${themeColors.secondary}20`,
-                boxShadow: `0 4px 30px ${themeColors.secondary}10`,
-                zIndex: 40
-              }}
-            >
-              <div className="space-y-4">
-                {['surface', 'wireframe', 'contour', 'ai-analysis'].map((m) => (
-                  <button
-                    key={m}
-                    className={`w-full px-4 py-2 rounded-lg text-sm transition-all duration-300 ${
-                      currentMode === m
-                        ? 'bg-white/10 shadow-lg'
-                        : 'hover:bg-white/5'
-                    }`}
-                    style={{
-                      color: currentMode === m ? themeColors.accent : themeColors.primary,
-                      borderLeft: `2px solid ${
-                        currentMode === m ? themeColors.accent : 'transparent'
-                      }`
-                    }}
-                    onClick={() => handleModeChange(m as VisualizationMode)}
-                    onMouseEnter={(e) => handleControlHover(`Mode: ${m}`, e)}
-                    onMouseLeave={() => setShowTooltip(false)}
-                  >
-                    {m.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Bottom Info Panel */}
-            <div
-              className="absolute bottom-4 left-4 right-4 p-4 rounded-xl backdrop-blur-xl transition-all duration-300 pointer-events-auto"
-              style={{
-                background: themeColors.background,
-                borderTop: `1px solid ${themeColors.secondary}20`,
-                boxShadow: `0 4px 30px ${themeColors.secondary}10`,
-                zIndex: 40,
-                marginRight: '160px' // Make space for joystick
-              }}
-            >
-              <div className="flex justify-between items-start">
-                <div className="space-y-2">
-                  <h3 className="text-sm font-medium" style={{ color: themeColors.primary }}>
-                    Interactive Controls
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4 text-xs" style={{ color: themeColors.secondary }}>
-                    <div className="flex items-center space-x-2">
-                      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10">
-                        🔄
-                      </span>
-                      <span>Rotate View</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10">
-                        ↔️
-                      </span>
-                      <span>Pan View</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10">
-                        🔍
-                      </span>
-                      <span>Zoom</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-white/10">
-                        📏
-                      </span>
-                      <span>Measure</span>
-                    </div>
-                  </div>
-                </div>
-
-                {selectedPoint && (
-                  <div
-                    className="p-3 rounded-lg"
-                    style={{ background: themeColors.background }}
-                  >
-                    <h3 className="text-sm font-medium mb-2" style={{ color: themeColors.primary }}>
-                      Selected Point
-                    </h3>
-                    <div className="grid grid-cols-3 gap-3 text-xs" style={{ color: themeColors.secondary }}>
-                      <div>X: {selectedPoint.x.toFixed(3)}mm</div>
-                      <div>Y: {selectedPoint.y.toFixed(3)}mm</div>
-                      <div>Z: {selectedPoint.z.toFixed(3)}mm</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
-
-        {/* Floating Tooltip */}
-        {showTooltip && (
-          <div
-            className="absolute pointer-events-none px-3 py-1.5 rounded-lg text-xs backdrop-blur-xl transition-all duration-300"
-            style={{
-              left: tooltipPosition.x + 10,
-              top: tooltipPosition.y - 20,
-              background: themeColors.background,
-              color: themeColors.primary,
-              border: `1px solid ${themeColors.accent}20`,
-              boxShadow: `0 4px 20px ${themeColors.accent}20`
-            }}
-          >
-            {tooltipContent}
-          </div>
-        )}
       </div>
     </div>
   );

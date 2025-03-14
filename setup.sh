@@ -11,7 +11,7 @@ git add README.md LICENSE .gitignore
 git commit -m "Initial commit: Add README, LICENSE, and .gitignore"
 
 # Set up remote (use HTTPS)
-git remote set-url origin https://github.com/Zckneil/BrightEye.git
+git remote set-url origin https://github.com/Zckneil/EyeQ.git
 
 # Push
 git push -u origin main

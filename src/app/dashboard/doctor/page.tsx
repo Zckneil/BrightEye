@@ -92,7 +92,7 @@ export default function DoctorDashboard() {
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-brighteye-primary">BrightEye</h1>
+          <h1 className="text-2xl font-bold text-EyeQ-primary">EyeQ</h1>
           <div className="flex items-center space-x-4">
             <div className="relative">
               <button className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">
@@ -102,7 +102,7 @@ export default function DoctorDashboard() {
               </button>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-full bg-brighteye-accent flex items-center justify-center text-white font-semibold">
+              <div className="w-8 h-8 rounded-full bg-EyeQ-accent flex items-center justify-center text-white font-semibold">
                 D
               </div>
               <span className="text-gray-700">Dr. Sarah Johnson</span>
@@ -120,7 +120,7 @@ export default function DoctorDashboard() {
               onClick={() => setActiveTab('overview')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'overview'
-                  ? 'border-brighteye-accent text-brighteye-accent'
+                  ? 'border-EyeQ-accent text-EyeQ-accent'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -130,7 +130,7 @@ export default function DoctorDashboard() {
               onClick={() => setActiveTab('patients')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'patients'
-                  ? 'border-brighteye-accent text-brighteye-accent'
+                  ? 'border-EyeQ-accent text-EyeQ-accent'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -140,7 +140,7 @@ export default function DoctorDashboard() {
               onClick={() => setActiveTab('appointments')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'appointments'
-                  ? 'border-brighteye-accent text-brighteye-accent'
+                  ? 'border-EyeQ-accent text-EyeQ-accent'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -150,7 +150,7 @@ export default function DoctorDashboard() {
               onClick={() => setActiveTab('analysis')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'analysis'
-                  ? 'border-brighteye-accent text-brighteye-accent'
+                  ? 'border-EyeQ-accent text-EyeQ-accent'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -195,7 +195,7 @@ export default function DoctorDashboard() {
                     <h2 className="text-lg font-semibold text-gray-800">Recent Patients</h2>
                     <button
                       onClick={() => setActiveTab('patients')}
-                      className="text-sm text-brighteye-accent hover:text-brighteye-secondary"
+                      className="text-sm text-EyeQ-accent hover:text-EyeQ-secondary"
                     >
                       View All
                     </button>
@@ -214,7 +214,7 @@ export default function DoctorDashboard() {
                         </div>
                         <Link
                           href={`/patient/${patient.id}`}
-                          className="text-sm text-brighteye-accent hover:text-brighteye-secondary"
+                          className="text-sm text-EyeQ-accent hover:text-EyeQ-secondary"
                         >
                           View Profile
                         </Link>
@@ -228,7 +228,7 @@ export default function DoctorDashboard() {
                     <h2 className="text-lg font-semibold text-gray-800">Upcoming Appointments</h2>
                     <button
                       onClick={() => setActiveTab('appointments')}
-                      className="text-sm text-brighteye-accent hover:text-brighteye-secondary"
+                      className="text-sm text-EyeQ-accent hover:text-EyeQ-secondary"
                     >
                       View All
                     </button>
@@ -245,7 +245,7 @@ export default function DoctorDashboard() {
                           <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">
                             {appointment.status}
                           </span>
-                          <button className="text-sm text-brighteye-accent hover:text-brighteye-secondary">
+                          <button className="text-sm text-EyeQ-accent hover:text-EyeQ-secondary">
                             Start Call
                           </button>
                         </div>
@@ -269,7 +269,7 @@ export default function DoctorDashboard() {
                       placeholder="Search patients..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brighteye-accent focus:border-brighteye-accent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-EyeQ-accent focus:border-EyeQ-accent"
                     />
                     <svg
                       className="absolute right-3 top-2.5 h-5 w-5 text-gray-400"
@@ -285,7 +285,7 @@ export default function DoctorDashboard() {
                       />
                     </svg>
                   </div>
-                  <button className="px-4 py-2 bg-brighteye-accent text-white rounded-md hover:bg-opacity-90 transition">
+                  <button className="px-4 py-2 bg-EyeQ-accent text-white rounded-md hover:bg-opacity-90 transition">
                     Add Patient
                   </button>
                 </div>
@@ -347,7 +347,7 @@ export default function DoctorDashboard() {
                           {patient.recentScan.replace('_', ' ')}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <Link href={`/patient/${patient.id}`} className="text-brighteye-accent hover:text-brighteye-secondary mr-4">
+                          <Link href={`/patient/${patient.id}`} className="text-EyeQ-accent hover:text-EyeQ-secondary mr-4">
                             View Profile
                           </Link>
                           <button className="text-gray-600 hover:text-gray-900">
@@ -368,7 +368,7 @@ export default function DoctorDashboard() {
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-xl font-semibold text-gray-800">Today's Schedule</h2>
-                  <button className="px-4 py-2 bg-brighteye-accent text-white rounded-md hover:bg-opacity-90 transition">
+                  <button className="px-4 py-2 bg-EyeQ-accent text-white rounded-md hover:bg-opacity-90 transition">
                     New Appointment
                   </button>
                 </div>
@@ -391,7 +391,7 @@ export default function DoctorDashboard() {
                           <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm inline-flex items-center justify-center">
                             {appointment.status}
                           </span>
-                          <button className="px-3 py-1 bg-brighteye-accent text-white rounded-md hover:bg-opacity-90 transition text-sm">
+                          <button className="px-3 py-1 bg-EyeQ-accent text-white rounded-md hover:bg-opacity-90 transition text-sm">
                             Start Video Call
                           </button>
                           <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition text-sm">
@@ -415,9 +415,9 @@ export default function DoctorDashboard() {
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h2 className="text-xl font-semibold text-gray-800 mb-6">Scan Analysis Tools</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="border border-gray-200 rounded-lg p-4 hover:border-brighteye-accent transition cursor-pointer">
-                    <div className="w-12 h-12 bg-brighteye-accent bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brighteye-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="border border-gray-200 rounded-lg p-4 hover:border-EyeQ-accent transition cursor-pointer">
+                    <div className="w-12 h-12 bg-EyeQ-accent bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-EyeQ-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                       </svg>
                     </div>
@@ -426,9 +426,9 @@ export default function DoctorDashboard() {
                       Analyze detailed 3D maps of corneal surface and thickness.
                     </p>
                   </div>
-                  <div className="border border-gray-200 rounded-lg p-4 hover:border-brighteye-accent transition cursor-pointer">
-                    <div className="w-12 h-12 bg-brighteye-accent bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brighteye-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="border border-gray-200 rounded-lg p-4 hover:border-EyeQ-accent transition cursor-pointer">
+                    <div className="w-12 h-12 bg-EyeQ-accent bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-EyeQ-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
@@ -437,9 +437,9 @@ export default function DoctorDashboard() {
                       Review and compare prescription changes over time.
                     </p>
                   </div>
-                  <div className="border border-gray-200 rounded-lg p-4 hover:border-brighteye-accent transition cursor-pointer">
-                    <div className="w-12 h-12 bg-brighteye-accent bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-brighteye-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="border border-gray-200 rounded-lg p-4 hover:border-EyeQ-accent transition cursor-pointer">
+                    <div className="w-12 h-12 bg-EyeQ-accent bg-opacity-10 rounded-lg flex items-center justify-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-EyeQ-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>
@@ -464,7 +464,7 @@ export default function DoctorDashboard() {
                           </p>
                         </div>
                         <div className="flex space-x-2">
-                          <button className="px-3 py-1 bg-brighteye-accent text-white rounded-md hover:bg-opacity-90 transition text-sm">
+                          <button className="px-3 py-1 bg-EyeQ-accent text-white rounded-md hover:bg-opacity-90 transition text-sm">
                             View Analysis
                           </button>
                           <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition text-sm">

@@ -52,7 +52,7 @@ export default function PatientDashboard() {
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-brighteye-primary">BrightEye</h1>
+          <h1 className="text-2xl font-bold text-EyeQ-primary">EyeQ</h1>
           <div className="flex items-center space-x-4">
             <div className="relative">
               <button className="p-2 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition">
@@ -62,7 +62,7 @@ export default function PatientDashboard() {
               </button>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-full bg-brighteye-primary flex items-center justify-center text-white font-semibold">
+              <div className="w-8 h-8 rounded-full bg-EyeQ-primary flex items-center justify-center text-white font-semibold">
                 J
               </div>
               <span className="text-gray-700">John Doe</span>
@@ -80,7 +80,7 @@ export default function PatientDashboard() {
               onClick={() => setActiveTab('overview')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'overview'
-                  ? 'border-brighteye-primary text-brighteye-primary'
+                  ? 'border-EyeQ-primary text-EyeQ-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -90,7 +90,7 @@ export default function PatientDashboard() {
               onClick={() => setActiveTab('scans')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'scans'
-                  ? 'border-brighteye-primary text-brighteye-primary'
+                  ? 'border-EyeQ-primary text-EyeQ-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -100,7 +100,7 @@ export default function PatientDashboard() {
               onClick={() => setActiveTab('prescriptions')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'prescriptions'
-                  ? 'border-brighteye-primary text-brighteye-primary'
+                  ? 'border-EyeQ-primary text-EyeQ-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -110,7 +110,7 @@ export default function PatientDashboard() {
               onClick={() => setActiveTab('appointments')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 activeTab === 'appointments'
-                  ? 'border-brighteye-primary text-brighteye-primary'
+                  ? 'border-EyeQ-primary text-EyeQ-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
             >
@@ -130,7 +130,7 @@ export default function PatientDashboard() {
                     <h3 className="text-lg font-semibold text-gray-800">Recent Scans</h3>
                     <button
                       onClick={() => setActiveTab('scans')}
-                      className="text-sm text-brighteye-primary hover:text-brighteye-secondary"
+                      className="text-sm text-EyeQ-primary hover:text-EyeQ-secondary"
                     >
                       View All
                     </button>
@@ -158,7 +158,7 @@ export default function PatientDashboard() {
                     <h3 className="text-lg font-semibold text-gray-800">Upcoming Appointments</h3>
                     <button
                       onClick={() => setActiveTab('appointments')}
-                      className="text-sm text-brighteye-primary hover:text-brighteye-secondary"
+                      className="text-sm text-EyeQ-primary hover:text-EyeQ-secondary"
                     >
                       View All
                     </button>
@@ -183,7 +183,7 @@ export default function PatientDashboard() {
                     <h3 className="text-lg font-semibold text-gray-800">Latest Prescription</h3>
                     <button
                       onClick={() => setActiveTab('prescriptions')}
-                      className="text-sm text-brighteye-primary hover:text-brighteye-secondary"
+                      className="text-sm text-EyeQ-primary hover:text-EyeQ-secondary"
                     >
                       View All
                     </button>
@@ -274,7 +274,7 @@ export default function PatientDashboard() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold text-gray-800">My Scans</h2>
-                <button className="px-4 py-2 bg-brighteye-primary text-white rounded-md hover:bg-opacity-90 transition">
+                <button className="px-4 py-2 bg-EyeQ-primary text-white rounded-md hover:bg-opacity-90 transition">
                   Upload New Scan
                 </button>
               </div>
@@ -311,7 +311,7 @@ export default function PatientDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <Link href={`/scan/${scan.id}`} className="text-brighteye-primary hover:text-brighteye-secondary mr-4">
+                          <Link href={`/scan/${scan.id}`} className="text-EyeQ-primary hover:text-EyeQ-secondary mr-4">
                             View
                           </Link>
                           <button className="text-gray-600 hover:text-gray-900">
@@ -341,7 +341,7 @@ export default function PatientDashboard() {
                         <button className="px-3 py-1 bg-gray-100 text-gray-900 rounded-md hover:bg-gray-200 transition text-sm">
                           Download
                         </button>
-                        <button className="px-3 py-1 bg-brighteye-primary text-white rounded-md hover:bg-opacity-90 transition text-sm">
+                        <button className="px-3 py-1 bg-EyeQ-primary text-white rounded-md hover:bg-opacity-90 transition text-sm">
                           Share
                         </button>
                       </div>
@@ -398,7 +398,7 @@ export default function PatientDashboard() {
             <div className="bg-white p-6 rounded-lg shadow-md">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold text-gray-800">My Appointments</h2>
-                <button className="px-4 py-2 bg-brighteye-primary text-white rounded-md hover:bg-opacity-90 transition">
+                <button className="px-4 py-2 bg-EyeQ-primary text-white rounded-md hover:bg-opacity-90 transition">
                   Schedule New Appointment
                 </button>
               </div>
@@ -417,7 +417,7 @@ export default function PatientDashboard() {
                       <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm inline-flex items-center justify-center">
                         {appointment.status}
                       </span>
-                      <button className="px-3 py-1 bg-brighteye-primary text-white rounded-md hover:bg-opacity-90 transition text-sm">
+                      <button className="px-3 py-1 bg-EyeQ-primary text-white rounded-md hover:bg-opacity-90 transition text-sm">
                         Join Video Call
                       </button>
                       <button className="px-3 py-1 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition text-sm">

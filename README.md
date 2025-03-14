@@ -1,10 +1,10 @@
-# BrightEye
+# EyeQ
 
-BrightEye is an innovative application designed to enhance visual accessibility and provide smart vision assistance.
+EyeQ is an innovative application designed to enhance visual accessibility and provide smart vision assistance.
 
 ## Project Overview
 
-BrightEye is a revolutionary, AI-powered ophthalmic platform designed to complement the BrightEye handheld eye scanner, enabling real-time corneal topography, AI-driven prescription analysis, and seamless telemedicine integration. The website serves as the primary interface for patients, clinicians, and administrators, providing an interactive, secure, and visually stunning user experience.
+EyeQ is a revolutionary, AI-powered ophthalmic platform designed to complement the EyeQ handheld eye scanner, enabling real-time corneal topography, AI-driven prescription analysis, and seamless telemedicine integration. The website serves as the primary interface for patients, clinicians, and administrators, providing an interactive, secure, and visually stunning user experience.
 
 ## Technology Stack
 
@@ -128,6 +128,7 @@ src/
 - AES-256 encryption
 - Secure cloud storage on AWS S3
 - Regular security audits
+- Site-wide password protection
 
 ## Getting Started
 
@@ -141,8 +142,8 @@ src/
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/Zckneil/BrightEye.git
-   cd BrightEye
+   git clone https://github.com/Zckneil/EyeQ.git
+   cd EyeQ
    ```
 
 2. Install dependencies
@@ -164,6 +165,34 @@ src/
    - Main application: http://localhost:3000
    - Corneal visualization demo: http://localhost:3000/demo/corneal-visualization
 
+## Deployment on Vercel
+
+### Setting Up Environment Variables
+
+1. Create a Vercel account and link your repository
+2. In the Vercel dashboard, navigate to your project
+3. Go to the "Settings" tab and select "Environment Variables"
+4. Add the following environment variables:
+   - `DATABASE_URL`: Your PostgreSQL connection string
+   - `NEXTAUTH_URL`: Your production URL (e.g., https://your-app.vercel.app)
+   - `NEXTAUTH_SECRET`: A secure random string for NextAuth
+   - `SITE_PASSWORD`: The password to access the site (e.g., "MayoJax")
+
+![Vercel Environment Variables](https://vercel.com/docs/storage/images/env-vars-dashboard.png)
+
+5. Deploy your application
+   ```bash
+   vercel --prod
+   ```
+
+### Updating Environment Variables
+
+To update environment variables:
+1. Go to your project in the Vercel dashboard
+2. Navigate to Settings > Environment Variables
+3. Edit the existing variables or add new ones
+4. Redeploy your application for changes to take effect
+
 ## Development Status
 
 ### Completed Features
@@ -176,6 +205,7 @@ src/
 - ✅ Real-time parameter controls
 - ✅ Custom shader implementation
 - ✅ Responsive navigation with mobile support
+- ✅ Site-wide password protection
 
 ### In Progress
 - 🔄 Advanced corneal analysis tools

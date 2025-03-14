@@ -1,107 +1,116 @@
 import { useEffect, useRef } from 'react';
-import nipplejs from 'nipplejs';
-import { MutableRefObject } from 'react';
+import nipplejs, { JoystickManager, EventData, JoystickManagerOptions } from 'nipplejs';
+import { OrbitControls as OrbitControlsImpl } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from 'three';
 
 interface JoystickProps {
-  theme: {
+  orbitControlsRef: React.MutableRefObject<OrbitControlsImpl | null>;
+  theme?: {
     primary: string;
     secondary: string;
     accent: string;
     background: string;
   };
-  orbitControlsRef: MutableRefObject<any>;
 }
 
-const Joystick: React.FC<JoystickProps> = ({ theme, orbitControlsRef }) => {
-  const joystickRef = useRef<HTMLDivElement>(null);
+export default function Joystick({ orbitControlsRef, theme }: JoystickProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const joystickRef = useRef<JoystickManager | null>(null);
+  const moveIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !joystickRef.current) return;
+    if (!containerRef.current) return;
 
-    const manager = nipplejs.create({
-      zone: joystickRef.current,
+    const options: JoystickManagerOptions = {
+      zone: containerRef.current,
       mode: 'static',
       position: { left: '50%', top: '50%' },
-      color: theme.primary,
-      size: 100,
-      dynamicPage: true,
-      multitouch: false,
-      maxNumberOfNipples: 1,
-      dataOnly: false,
-      restJoystick: true,
-      restOpacity: 0.5,
-      threshold: 0.1
-    });
+      color: theme?.primary || '#3B82F6',
+      size: 100
+    };
 
-    let moveInterval: NodeJS.Timeout | null = null;
+    joystickRef.current = nipplejs.create(options);
+
+    const manager = joystickRef.current;
 
     manager.on('start', () => {
-      if (joystickRef.current) {
-        joystickRef.current.style.opacity = '1';
+      if (containerRef.current) {
+        containerRef.current.style.opacity = '1';
       }
     });
 
-    manager.on('move', (evt, data) => {
-      if (orbitControlsRef.current && data.vector) {
-        const rotationSpeed = 0.03;
-        const deltaX = -data.vector.x * rotationSpeed * data.force;
-        const deltaY = -data.vector.y * rotationSpeed * data.force;
+    manager.on('move', (_, data) => {
+      if (!orbitControlsRef.current) return;
 
-        if (moveInterval) clearInterval(moveInterval);
-        moveInterval = setInterval(() => {
-          orbitControlsRef.current.rotateLeft(deltaX);
-          orbitControlsRef.current.rotateUp(deltaY);
-        }, 16);
+      const force = data.force < 2 ? data.force : 2;
+      const maxSpeed = 0.05;
+      const deltaX = -(data.vector.x * force * maxSpeed);
+      const deltaY = data.vector.y * force * maxSpeed;
+
+      // Clear existing interval
+      if (moveIntervalRef.current) {
+        clearInterval(moveIntervalRef.current);
       }
+
+      // Create new interval for smooth rotation
+      moveIntervalRef.current = setInterval(() => {
+        if (!orbitControlsRef.current) return;
+
+        // Update the camera rotation using spherical coordinates
+        const controls = orbitControlsRef.current;
+        
+        // Get current spherical coordinates
+        const spherical = new THREE.Spherical().setFromVector3(
+          new THREE.Vector3().subVectors(
+            controls.object.position,
+            controls.target
+          )
+        );
+
+        // Update angles
+        spherical.theta -= deltaX; // Rotate around Y axis
+        spherical.phi = Math.max(0.1, Math.min(Math.PI - 0.1, spherical.phi + deltaY)); // Rotate around X axis
+
+        // Convert back to Cartesian coordinates
+        const newPosition = new THREE.Vector3().setFromSpherical(spherical);
+        controls.object.position.copy(newPosition.add(controls.target));
+        controls.object.lookAt(controls.target);
+        
+        controls.update();
+      }, 16);
     });
 
     manager.on('end', () => {
-      if (moveInterval) {
-        clearInterval(moveInterval);
-        moveInterval = null;
+      if (containerRef.current) {
+        containerRef.current.style.opacity = '0.5';
       }
-      if (joystickRef.current) {
-        joystickRef.current.style.opacity = '0.8';
+      if (moveIntervalRef.current) {
+        clearInterval(moveIntervalRef.current);
+        moveIntervalRef.current = null;
       }
     });
 
     return () => {
-      if (moveInterval) clearInterval(moveInterval);
+      if (moveIntervalRef.current) {
+        clearInterval(moveIntervalRef.current);
+      }
       manager.destroy();
     };
-  }, [theme, orbitControlsRef]);
+  }, [orbitControlsRef, theme]);
 
   return (
     <div
-      ref={joystickRef}
-      className="absolute bottom-8 right-8 w-32 h-32 rounded-full backdrop-blur-xl pointer-events-auto z-50 transition-all duration-300"
+      ref={containerRef}
+      className="fixed bottom-8 right-8 w-32 h-32 bg-black/20 backdrop-blur-lg rounded-full border border-white/10 opacity-50 transition-opacity duration-200"
       style={{
-        background: `linear-gradient(135deg, ${theme.background}, rgba(0,0,0,0.3))`,
-        border: `2px solid ${theme.primary}40`,
-        boxShadow: `0 4px 30px ${theme.primary}30, inset 0 2px 10px rgba(255,255,255,0.1)`,
-        opacity: 0.8
+        background: `radial-gradient(circle at center, ${theme?.background || '#1a1a1a'}00, ${
+          theme?.background || '#1a1a1a'
+        }40)`,
       }}
     >
-      {/* Joystick Label */}
-      <div 
-        className="absolute -top-7 left-0 w-full text-center text-xs font-light tracking-wider"
-        style={{ 
-          color: theme.primary,
-          textShadow: `0 0 10px ${theme.primary}50`
-        }}
-      >
-        Rotation Control
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span className="text-xs text-white/50">Camera Control</span>
       </div>
-      {/* Joystick Guide */}
-      <div 
-        className="absolute inset-4 rounded-full opacity-20"
-        style={{
-          border: `1px dashed ${theme.primary}`,
-          background: `radial-gradient(circle, ${theme.primary}10 0%, transparent 70%)`
-        }}
-      />
     </div>
   );
-};
-
-export default Joystick; 
+} 

@@ -27,7 +27,7 @@ mkdir -p src/app/auth \
 # Create package.json
 cat > package.json << 'EOL'
 {
-  "name": "brighteye",
+  "name": "EyeQ",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -113,7 +113,7 @@ cat > next.config.js << 'EOL'
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['localhost', 'brighteye.com'],
+    domains: ['localhost', 'EyeQ.com'],
   },
 }
 
@@ -174,8 +174,8 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom BrightEye colors
-        brighteye: {
+        // Custom EyeQ colors
+        EyeQ: {
           primary: "#0070f3",
           secondary: "#00c8ff",
           accent: "#7928ca",
@@ -221,7 +221,7 @@ EOL
 # Create .env file
 cat > .env << 'EOL'
 # Environment variables
-DATABASE_URL="postgresql://postgres:password@localhost:5432/brighteye"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/EyeQ"
 NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-nextauth-secret-key-here"
 EOL
@@ -313,7 +313,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BrightEye - Next-Generation Eye Scanner',
+  title: 'EyeQ - Next-Generation Eye Scanner',
   description: 'AI-powered ophthalmic platform for real-time corneal topography, prescription analysis, and telemedicine integration',
 }
 
@@ -418,8 +418,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm">
-        <h1 className="text-6xl font-bold text-center mb-8 bg-gradient-to-r from-brighteye-primary to-brighteye-accent bg-clip-text text-transparent">
-          BrightEye
+        <h1 className="text-6xl font-bold text-center mb-8 bg-gradient-to-r from-EyeQ-primary to-EyeQ-accent bg-clip-text text-transparent">
+          EyeQ
         </h1>
         <p className="text-2xl text-center mb-12">
           Next-Generation AI-Powered Eye Scanner
@@ -427,13 +427,13 @@ export default function Home() {
         <div className="flex justify-center gap-4">
           <Link 
             href="/dashboard/patient" 
-            className="px-6 py-3 bg-brighteye-primary text-white rounded-md hover:bg-opacity-90 transition"
+            className="px-6 py-3 bg-EyeQ-primary text-white rounded-md hover:bg-opacity-90 transition"
           >
             Patient Dashboard
           </Link>
           <Link 
             href="/dashboard/doctor" 
-            className="px-6 py-3 bg-brighteye-accent text-white rounded-md hover:bg-opacity-90 transition"
+            className="px-6 py-3 bg-EyeQ-accent text-white rounded-md hover:bg-opacity-90 transition"
           >
             Doctor Dashboard
           </Link>
@@ -450,7 +450,7 @@ export default function PatientDashboard() {
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6">Patient Dashboard</h1>
-      <p>Welcome to your BrightEye patient dashboard. This is where you'll access your scan history, prescriptions, and telemedicine appointments.</p>
+      <p>Welcome to your EyeQ patient dashboard. This is where you'll access your scan history, prescriptions, and telemedicine appointments.</p>
     </div>
   )
 }
@@ -462,7 +462,7 @@ export default function DoctorDashboard() {
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6">Doctor Dashboard</h1>
-      <p>Welcome to your BrightEye doctor dashboard. This is where you'll manage patient scans, analyze results, and conduct telemedicine appointments.</p>
+      <p>Welcome to your EyeQ doctor dashboard. This is where you'll manage patient scans, analyze results, and conduct telemedicine appointments.</p>
     </div>
   )
 }
@@ -474,7 +474,7 @@ export default function AdminDashboard() {
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      <p>Welcome to the BrightEye admin dashboard. This is where you'll manage users, system settings, and monitor platform analytics.</p>
+      <p>Welcome to the EyeQ admin dashboard. This is where you'll manage users, system settings, and monitor platform analytics.</p>
     </div>
   )
 }

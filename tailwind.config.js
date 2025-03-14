@@ -50,8 +50,8 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom BrightEye colors
-        brighteye: {
+        // Custom EyeQ colors
+        EyeQ: {
           primary: "#0070f3",
           secondary: "#00c8ff",
           accent: "#7928ca",
